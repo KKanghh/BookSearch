@@ -1,0 +1,10 @@
+.home {
+  margin-top: 30vh;
+  text-align: center;
+}
+
+.home h1 {
+  font-size: 90px;
+  font-family: "Song Myung", serif;
+  margin-bottom: 20px;
+}

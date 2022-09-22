@@ -1,0 +1,42 @@
+.form {
+  width: 90%;
+  max-width: 600px;
+  margin: 20px auto;
+  border: none;
+  padding: 1rem;
+  background-color: none;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.control input {
+  height: 50px;
+  width: 450px;
+  background-color: white;
+  color: black;
+  padding: 0.5rem;
+  border: 3px black solid;
+  font-size: 500;
+}
+
+.control input:focus {
+  outline: none;
+}
+
+.control button {
+  height: 50px;
+  width: 80px;
+  border: 2px black solid;
+  padding: 10px 1em;
+  background-color: white;
+  font-weight: 200;
+  border-radius: 0.2rem;
+  font-size: 18px;
+  font-family: "Gowun Dodum", sans-serif;
+}
+
+.control button:hover,
+.control button:active {
+  cursor: pointer;
+}
