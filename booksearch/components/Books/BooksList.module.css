@@ -1,0 +1,6 @@
+.booksList {
+  list-style: none;
+  width: 100%;
+  border: 3px solid black;
+  padding: 0;
+}

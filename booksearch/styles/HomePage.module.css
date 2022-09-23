@@ -1,5 +1,5 @@
 .home {
-  margin-top: 30vh;
+  margin-top: 15vh;
   text-align: center;
 }
 
@@ -7,4 +7,5 @@
   font-size: 90px;
   font-family: "Song Myung", serif;
   margin-bottom: 20px;
+  /* text-shadow: 4px 4px 5px #888; */
 }

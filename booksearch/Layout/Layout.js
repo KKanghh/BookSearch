@@ -1,4 +1,5 @@
-import style from "./Layout.module.css";
+import styles from "./Layout.module.css";
+import MainNavigation from "../Layout/MainNavigation";
 
 function Layout(props) {
   return (
