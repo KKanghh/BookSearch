@@ -1,11 +1,10 @@
 import styles from "./MainNavigation.module.css";
-import Link from "next/link";
-import { useRouter } from "next/router";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import authContext from "../store/auth-context";
 
 const loginNavigationMenus = [
-  { id: "m1", name: "내 정보", href: "/" },
+  { id: "m1", name: "내 정보", href: "/mypage" },
   { id: "m2", name: "인기 검색어", href: "/popular" },
 ];
 
@@ -15,15 +14,14 @@ const logoutNavigationMenus = [
 ];
 
 function MainNavigation() {
-  const router = useRouter();
+  const navigate = useNavigate();
   const ctx = useContext(authContext);
 
   const onClickLogo = () => {
-    router.push("/");
+    navigate("/");
   };
 
   let menus = ctx.isLoggedIn ? loginNavigationMenus : logoutNavigationMenus;
-  console.log(router.pathname);
   return (
     <header className={styles.header}>
       <div onClick={onClickLogo} className={styles.logo}>
@@ -33,13 +31,12 @@ function MainNavigation() {
         <ul>
           {menus.map((menu) => (
             <li key={menu.id}>
-              <Link href={menu.href}>
-                <a
-                  className={router.pathname === menu.href ? styles.active : ""}
-                >
-                  {menu.name}
-                </a>
-              </Link>
+              <NavLink
+                to={menu.href}
+                className={(navData) => (navData.isActive ? styles.active : "")}
+              >
+                {menu.name}
+              </NavLink>
             </li>
           ))}
         </ul>

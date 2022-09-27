@@ -1,11 +1,11 @@
 import { useState, useEffect, useContext } from "react";
-import { useRouter } from "next/router";
+import { useNavigate } from "react-router-dom";
 import styles from "./SearchForm.module.css";
 import authContext from "../store/auth-context";
 
 function SearchForm(props) {
   const [enteredName, setEnteredName] = useState("");
-  const router = useRouter();
+  const navigate = useNavigate();
   const ctx = useContext(authContext);
 
   const changeHandler = (event) => {
@@ -20,12 +20,12 @@ function SearchForm(props) {
       return;
     }
     console.log(enteredName);
-    router.push(`/search/${enteredName}`);
+    navigate(`/search/${enteredName}`);
   };
 
   useEffect(() => {
     if (props.value) setEnteredName(props.value);
-  }, []);
+  }, [props.value]);
 
   return (
     <form className={styles.form} onSubmit={submitHandler}>

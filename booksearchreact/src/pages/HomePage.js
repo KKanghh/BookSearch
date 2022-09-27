@@ -1,6 +1,6 @@
 import SearchForm from "../components/SearchForm";
-import style from "../styles/HomePage.module.css";
-import { Fragment, useState } from "react";
+import style from "./HomePage.module.css";
+import { useState } from "react";
 
 function HomePage() {
   const [caution, setCaution] = useState("");
