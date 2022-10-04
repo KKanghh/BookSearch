@@ -9,6 +9,7 @@ import authContext from "./store/auth-context";
 import SearchPage from "./pages/SearchPage";
 import MyPage from "./pages/MyPage";
 import DetailPage from "./pages/DetailPage";
+import LogoutPage from "./pages/LogoutPage";
 
 function App() {
   const ctx = useContext(authContext);
@@ -16,14 +17,14 @@ function App() {
     <Layout>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/users/login" element={<LoginPage />} />
+        <Route path="/users/signup" element={<SignUpPage />} />
         <Route
           path="/popular"
           element={!ctx.isLoggedIn ? <Navigate to="/" /> : <PopularPage />}
         />
         <Route
-          path="/search/:keyword"
+          path="/search"
           element={!ctx.isLoggedIn ? <Navigate to="/" /> : <SearchPage />}
         />
         <Route
@@ -33,6 +34,10 @@ function App() {
         <Route
           path="/detail/:bookId"
           element={!ctx.isLoggedIn ? <Navigate to="/" /> : <DetailPage />}
+        />
+        <Route
+          path="/logout"
+          element={!ctx.isLoggedIn ? <Navigate to="/" /> : <LogoutPage />}
         />
         <Route path="*" element={<h1>Page Not Found.</h1>} />
       </Routes>

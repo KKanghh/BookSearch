@@ -1,0 +1,37 @@
+.title {
+  font-family: "Gowun Dodum", sans-serif;
+}
+
+.detail {
+  border-collapse: collapse;
+  font-family: "Gowun Dodum", sans-serif;
+  margin: 25px auto;
+  width: 100%;
+}
+
+.detail tbody {
+  width: 100%;
+}
+
+.detail tbody tr:nth-child(1) {
+  border-top: 1px solid black;
+}
+
+.detail tr td:nth-child(1) {
+  width: 20%;
+  text-align: center;
+  max-width: 180px;
+}
+
+.detail tr {
+  border-bottom: 1px solid black;
+}
+
+.detail td {
+  padding: 4px;
+  border-left: 1px solid black;
+}
+
+tr td:nth-child(1) {
+  border-left: none;
+}

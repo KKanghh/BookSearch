@@ -4,7 +4,6 @@ import authContext from "../store/auth-context";
 
 function LoginPage() {
   const ctx = useContext(authContext);
-
   return <AuthForm text="로그인" onSubmit={ctx.onLogin} />;
 }
 

@@ -4,34 +4,34 @@
   max-width: 500px;
   width: 80%;
   margin: 100px auto;
-  display: flex;
+  padding: 30px 0;
+  /* display: flex;
   flex-direction: column;
-  /* align-items: center; */
-  justify-content: space-evenly;
+  align-items: center; 
+  justify-content: space-evenly; */
   font-family: "Gothic A1", sans-serif;
+}
+
+.smallForm {
+  height: 300px;
+}
+
+.largeForm {
+  height: 420px;
 }
 
 .form h2 {
   font-family: "Gowun Dodum", sans-serif;
-  margin: 10px auto;
+  margin: 0 auto 35px;
   text-align: center;
 }
 
-.control {
-  display: flex;
-  margin: 20px 35px;
-  height: 30%;
+.smallForm .input {
+  height: 120px;
 }
 
-.control label {
-  width: 30%;
-  height: 27px;
-}
-
-.control input {
-  width: 70%;
-  outline: none;
-  border: 3px solid black;
+.largeForm .input {
+  height: 250px;
 }
 
 .actions {
@@ -51,4 +51,10 @@
 .actions button:hover {
   background-color: black;
   color: white;
+}
+
+.caution {
+  text-align: center;
+  font-family: "Gowun Dodum", sans-serif;
+  color: red;
 }

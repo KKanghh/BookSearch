@@ -1,5 +1,7 @@
+import Ranking from "../components/Ranking";
+
 function PopularPage() {
-  return <h1>인기 검색어</h1>;
+  return <Ranking />;
 }
 
 export default PopularPage;

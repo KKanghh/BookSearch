@@ -6,11 +6,12 @@ import authContext from "../store/auth-context";
 const loginNavigationMenus = [
   { id: "m1", name: "내 정보", href: "/mypage" },
   { id: "m2", name: "인기 검색어", href: "/popular" },
+  { id: "m3", name: "로그아웃", href: "/logout" },
 ];
 
 const logoutNavigationMenus = [
-  { id: "m1", name: "로그인", href: "/login" },
-  { id: "m2", name: "회원가입", href: "/signup" },
+  { id: "m1", name: "로그인", href: "/users/login" },
+  { id: "m2", name: "회원가입", href: "/users/signup" },
 ];
 
 function MainNavigation() {

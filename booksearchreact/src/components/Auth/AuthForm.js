@@ -1,42 +1,51 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import styles from "./AuthForm.module.css";
+import LoginInput from "./LoginInput";
+import SignupInput from "./SignupInput";
+import axios from "axios";
 
-function AuthForm(props) {
-  const navigate = useNavigate();
-  const [id, setId] = useState("");
-  const [password, setPassword] = useState("");
+function AuthForm({ text, onSubmit }) {
+  const location = useLocation();
+  const [info, setInfo] = useState({});
+  const [error, setError] = useState(null);
 
-  const onIdChange = (event) => {
-    setId(event.target.value);
-  };
-
-  const onPasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
-
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
-    props.onSubmit(id, password);
-    console.log(id, password);
-    navigate("/");
+    try {
+      if (location.pathname === "/users/login") {
+        const res = await axios("/users/login", { ...info });
+        console.log(res.data);
+      } else {
+        const res = await axios("/users/signup", { ...info });
+        console.log(res.data);
+      }
+    } catch (err) {
+      setError(err);
+    }
+    console.log(info);
   };
 
   return (
-    <form className={styles.form} onSubmit={submitHandler}>
-      <h2>{props.text}</h2>
-      <div>
-        <div className={styles.control}>
-          <label htmlFor="id">ID</label>
-          <input type="text" id="id" onChange={onIdChange} />
-        </div>
-        <div className={styles.control}>
-          <label htmlFor="password">비밀번호</label>
-          <input type="password" id="password" onChange={onPasswordChange} />
-        </div>
+    <form
+      className={`${styles.form} ${
+        location.pathname === "/users/login"
+          ? styles.smallForm
+          : styles.largeForm
+      }`}
+      onSubmit={submitHandler}
+    >
+      <h2>{text}</h2>
+      <div className={styles.input}>
+        {location.pathname === "/users/login" ? (
+          <LoginInput setInfo={setInfo} />
+        ) : (
+          <SignupInput setInfo={setInfo} />
+        )}
+        <p className={styles.caution}>{error?.message}</p>
       </div>
       <div className={styles.actions}>
-        <button>{props.text}</button>
+        <button>{text}</button>
       </div>
     </form>
   );
