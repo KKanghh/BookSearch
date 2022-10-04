@@ -1,29 +1,34 @@
-import { useLocation } from "react-router-dom";
-import { useState } from "react";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
 import styles from "./AuthForm.module.css";
 import LoginInput from "./LoginInput";
 import SignupInput from "./SignupInput";
 import axios from "axios";
+import authContext from "../../store/auth-context";
 
 function AuthForm({ text, onSubmit }) {
   const location = useLocation();
+  const navigate = useNavigate();
+  const ctx = useContext(authContext);
   const [info, setInfo] = useState({});
   const [error, setError] = useState(null);
 
   const submitHandler = async (event) => {
     event.preventDefault();
     try {
+      let res;
       if (location.pathname === "/users/login") {
-        const res = await axios("/users/login", { ...info });
-        console.log(res.data);
+        res = await axios("/users/login", { ...info });
+        ctx.onLogin(res.data.accessToken);
       } else {
-        const res = await axios("/users/signup", { ...info });
-        console.log(res.data);
+        res = await axios("/users/signup", { ...info });
       }
+      console.log(res.data);
+      navigate("/");
     } catch (err) {
       setError(err);
+      return;
     }
-    console.log(info);
   };
 
   return (
