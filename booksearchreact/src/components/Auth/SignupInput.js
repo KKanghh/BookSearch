@@ -30,7 +30,7 @@ function LoginInput({ setInfo }) {
         <label htmlFor="password">비밀번호</label>
         <input
           type="password"
-          id="password"
+          id="password1"
           ref={password1Ref}
           onChange={changeHandler}
         />
@@ -39,7 +39,7 @@ function LoginInput({ setInfo }) {
         <label htmlFor="password">비밀번호 확인</label>
         <input
           type="password"
-          id="password"
+          id="password2"
           ref={password2Ref}
           onChange={changeHandler}
         />
