@@ -1,4 +1,4 @@
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import styles from "./AuthForm.module.css";
 import LoginInput from "./LoginInput";
@@ -18,10 +18,10 @@ function AuthForm({ text, onSubmit }) {
     try {
       let res;
       if (location.pathname === "/users/login") {
-        res = await axios("/users/login", { ...info });
+        res = await axios.post("/users/login", { ...info });
         ctx.onLogin(res.data.accessToken);
       } else {
-        res = await axios("/users/signup", { ...info });
+        res = await axios.post("/users/signup", { ...info });
       }
       console.log(res.data);
       navigate("/");
