@@ -1,5 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
+import Button from "../UI/Button";
 import styles from "./AuthForm.module.css";
 import LoginInput from "./LoginInput";
 import SignupInput from "./SignupInput";
@@ -18,14 +19,20 @@ function AuthForm({ text, onSubmit }) {
     try {
       let res;
       if (location.pathname === "/users/login") {
-        res = await axios.post("/users/login", { ...info });
-        ctx.onLogin(res.data.accessToken);
+        // res = await axios.post("http://localhost:8080/users/login", {
+        //   ...info,
+        // });
+        // ctx.onLogin(res.data.accessToken);
+        ctx.onLogin("token");
       } else {
-        res = await axios.post("/users/signup", { ...info });
+        res = await axios.post("http://localhost:8080/users/signup", {
+          ...info,
+        });
       }
       console.log(res.data);
       navigate("/");
     } catch (err) {
+      console.log(err);
       setError(err);
       return;
     }
@@ -50,7 +57,7 @@ function AuthForm({ text, onSubmit }) {
         <p className={styles.caution}>{error?.message}</p>
       </div>
       <div className={styles.actions}>
-        <button>{text}</button>
+        <Button type="submit">{text}</Button>
       </div>
     </form>
   );

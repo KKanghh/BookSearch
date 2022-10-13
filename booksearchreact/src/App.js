@@ -17,8 +17,14 @@ function App() {
     <Layout>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/users/login" element={<LoginPage />} />
-        <Route path="/users/signup" element={<SignUpPage />} />
+        <Route
+          path="/users/login"
+          element={ctx.isLoggedIn ? <Navigate to="/" /> : <LoginPage />}
+        />
+        <Route
+          path="/users/signup"
+          element={ctx.isLoggedIn ? <Navigate to="/" /> : <SignUpPage />}
+        />
         <Route
           path="/popular"
           element={!ctx.isLoggedIn ? <Navigate to="/" /> : <PopularPage />}

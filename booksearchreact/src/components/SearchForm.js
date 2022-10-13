@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./SearchForm.module.css";
 import authContext from "../store/auth-context";
+import Button from "./UI/Button";
 
 function SearchForm(props) {
   const [enteredName, setEnteredName] = useState("");
@@ -39,7 +40,7 @@ function SearchForm(props) {
         />
       </div>
       <div className={styles.control}>
-        <button type="submit">검색</button>
+        <Button type="submit">검색</Button>
       </div>
     </form>
   );

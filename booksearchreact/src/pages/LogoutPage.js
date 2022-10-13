@@ -1,5 +1,6 @@
 import React, { Fragment, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Button from "../components/UI/Button";
 import authContext from "../store/auth-context";
 
 function LogoutPage() {
@@ -21,7 +22,7 @@ function LogoutPage() {
   return (
     <Fragment>
       <h1>로그아웃</h1>
-      <button onClick={logoutHandler}>로그아웃</button>
+      <Button onClick={logoutHandler}>로그아웃</Button>
     </Fragment>
   );
 }
