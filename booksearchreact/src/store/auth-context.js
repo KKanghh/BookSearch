@@ -1,21 +1,41 @@
-import React, { useState } from "react";
-
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 const authContext = React.createContext({
   token: "",
   isLoggedIn: false,
-  onLogin: (token) => {},
+  onLogin: (token, refreshToken) => {},
   onLogout: () => {},
 });
 
 export function AuthContextProvider(props) {
   const [token, setToken] = useState(null);
+  const [refreshToken, setRefreshToken] = useState(null);
 
-  const loginHandler = (token) => {
+  const loginHandler = (token, rToken) => {
     setToken(token);
+    setRefreshToken(rToken);
+    localStorage.setItem("accessToken", token);
   };
 
   const logoutHandler = () => {
     setToken(null);
+    setRefreshToken(null);
+    localStorage.removeItem("accessToken");
+  };
+
+  useEffect(() => {
+    if (localStorage.getItem("accessToken")) {
+      setToken(localStorage.getItem("accessToken"));
+    }
+  }, []);
+
+  const refresh = async () => {
+    console.log(token, refreshToken);
+    const res = await axios.post("https://localhost:8080/users/token", {
+      accessToken: token,
+      refreshToken,
+    });
+    console.log(res.data);
   };
 
   return (
@@ -25,6 +45,7 @@ export function AuthContextProvider(props) {
         isLoggedIn: !!token,
         onLogin: loginHandler,
         onLogout: logoutHandler,
+        refresh,
       }}
     >
       {props.children}

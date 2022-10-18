@@ -1,33 +1,21 @@
 import React from "react";
 import Book from "./Book";
 import styles from "./BooksList.module.css";
-const DUMMY_BOOKS = [
-  {
-    id: "b1",
-    name: "백설공주 1",
-    img: "https://image.yes24.com/goods/22709127/L",
-  },
-  {
-    id: "b2",
-    name: "백설공주 2",
-    img: "https://image.yes24.com/goods/56446488/L",
-  },
-  {
-    id: "b3",
-    name: "백설공주 3",
-    img: "https://image.yes24.com/goods/22709127/L",
-  },
-];
 
-function BooksList() {
+function BooksList({ books, isLoading }) {
+  if (isLoading) return <h1>검색 중...</h1>;
+  else if (books?.length === 0) return <h1>NO BOOKS FOUND</h1>;
   return (
-    <React.Fragment>
-      <ul className={styles.booksList}>
-        {DUMMY_BOOKS.map((book) => (
-          <Book key={book.id} id={book.id} name={book.name} img={book.img} />
-        ))}
-      </ul>
-    </React.Fragment>
+    <ul className={styles.booksList}>
+      {books.map((book) => (
+        <Book
+          key={book.isbn}
+          isbn={book.isbn}
+          name={book.title}
+          img={book.image}
+        />
+      ))}
+    </ul>
   );
 }
 

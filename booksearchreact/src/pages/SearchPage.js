@@ -1,5 +1,5 @@
-import { Fragment, useEffect, useContext } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { Fragment, useEffect, useContext, useState } from "react";
+import { useLocation } from "react-router-dom";
 import BooksList from "../components/Books/BooksList";
 import SearchForm from "../components/SearchForm";
 import axios from "axios";
@@ -11,13 +11,15 @@ function SearchPage(props) {
   const keyword = queryParams.get("keyword");
   const page = queryParams.get("page");
   const ctx = useContext(authContext);
-  console.log(ctx.token);
-  console.log(keyword, page);
+  const [books, setBooks] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     async function fetchData() {
+      setIsLoading(true);
       try {
         const res = await axios.get(
-          `https://localhost:8080/search?keyword=${keyword}&page=${page}`,
+          `http://localhost:8080/search?keyword=${keyword}&page=${page}`,
           {
             headers: {
               "X-Auth-Token": ctx.token,
@@ -25,19 +27,20 @@ function SearchPage(props) {
           }
         );
         console.log(res.data);
+        setBooks(res.data.items);
       } catch (err) {
-        console.log("Error!");
+        //await ctx.refresh();
         console.error(err);
+      } finally {
+        setIsLoading(false);
       }
     }
-    console.log(1);
     fetchData();
-    console.log(2);
   }, [keyword, page, ctx.token]);
   return (
     <Fragment>
       <SearchForm value={keyword} />
-      <BooksList />
+      <BooksList books={books} isLoading={isLoading} />
     </Fragment>
   );
 }

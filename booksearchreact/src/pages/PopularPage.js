@@ -1,4 +1,4 @@
-import Ranking from "../components/Ranking";
+import Ranking from "../components/Ranking/Ranking";
 
 function PopularPage() {
   return <Ranking />;
