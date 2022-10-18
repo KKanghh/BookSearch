@@ -1,0 +1,28 @@
+.footer {
+  display: flex;
+  width: 300px;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.footer a {
+  margin: 0 10px;
+}
+
+.footer button {
+  width: 60px;
+}
+
+.pageBar {
+  width: 200px;
+  text-align: center;
+}
+
+.active {
+  border-bottom: 1px black solid;
+}
+
+.empty {
+  width: 60px;
+  height: 25px;
+}

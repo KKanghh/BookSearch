@@ -15,17 +15,20 @@ export function AuthContextProvider(props) {
     setToken(token);
     setRefreshToken(rToken);
     localStorage.setItem("accessToken", token);
+    localStorage.setItem("refreshToken", refreshToken);
   };
 
   const logoutHandler = () => {
     setToken(null);
     setRefreshToken(null);
     localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
   };
 
   useEffect(() => {
     if (localStorage.getItem("accessToken")) {
       setToken(localStorage.getItem("accessToken"));
+      setRefreshToken(localStorage.getItem("refreshToken"));
     }
   }, []);
 
