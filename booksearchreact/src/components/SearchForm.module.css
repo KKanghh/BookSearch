@@ -45,3 +45,17 @@
   background-color: black;
   color: white;
 }
+
+.history {
+  width: 450px;
+  margin: 0 auto;
+  position: absolute;
+  padding-left: 0;
+  list-style: none;
+  background-color: white;
+}
+
+.history li {
+  padding: 4px;
+  border-bottom: 1px solid black;
+}

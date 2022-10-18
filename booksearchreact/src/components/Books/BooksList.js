@@ -1,3 +1,4 @@
+import React from "react";
 import Book from "./Book";
 import styles from "./BooksList.module.css";
 const DUMMY_BOOKS = [
@@ -20,11 +21,13 @@ const DUMMY_BOOKS = [
 
 function BooksList() {
   return (
-    <ul className={styles.booksList}>
-      {DUMMY_BOOKS.map((book) => (
-        <Book key={book.id} id={book.id} name={book.name} img={book.img} />
-      ))}
-    </ul>
+    <React.Fragment>
+      <ul className={styles.booksList}>
+        {DUMMY_BOOKS.map((book) => (
+          <Book key={book.id} id={book.id} name={book.name} img={book.img} />
+        ))}
+      </ul>
+    </React.Fragment>
   );
 }
 

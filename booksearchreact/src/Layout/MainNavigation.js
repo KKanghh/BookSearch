@@ -2,11 +2,11 @@ import styles from "./MainNavigation.module.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import authContext from "../store/auth-context";
+import Button from "../components/UI/Button";
 
 const loginNavigationMenus = [
   { id: "m1", name: "내 정보", href: "/mypage" },
   { id: "m2", name: "인기 검색어", href: "/popular" },
-  { id: "m3", name: "로그아웃", href: "/logout" },
 ];
 
 const logoutNavigationMenus = [
@@ -40,6 +40,9 @@ function MainNavigation() {
               </NavLink>
             </li>
           ))}
+          <li>
+            {ctx.isLoggedIn && <Button onClick={ctx.onLogout}>로그아웃</Button>}
+          </li>
         </ul>
       </nav>
     </header>

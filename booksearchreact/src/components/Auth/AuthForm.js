@@ -16,14 +16,15 @@ function AuthForm({ text, onSubmit }) {
 
   const submitHandler = async (event) => {
     event.preventDefault();
+    console.log(info);
     try {
       let res;
       if (location.pathname === "/users/login") {
-        // res = await axios.post("http://localhost:8080/users/login", {
-        //   ...info,
-        // });
-        // ctx.onLogin(res.data.accessToken);
-        ctx.onLogin("token");
+        res = await axios.post("http://localhost:8080/users/login", {
+          ...info,
+        });
+        ctx.onLogin(res.data.accessToken);
+        // ctx.onLogin("token");
       } else {
         res = await axios.post("http://localhost:8080/users/signup", {
           ...info,
@@ -33,7 +34,9 @@ function AuthForm({ text, onSubmit }) {
       navigate("/");
     } catch (err) {
       console.log(err);
-      setError(err);
+      if (err.response.status === 422)
+        setError("Email / Password가 잘못 입력되었습니다.");
+      else setError(err.message);
       return;
     }
   };
@@ -54,7 +57,7 @@ function AuthForm({ text, onSubmit }) {
         ) : (
           <SignupInput setInfo={setInfo} />
         )}
-        <p className={styles.caution}>{error?.message}</p>
+        <p className={styles.caution}>{error}</p>
       </div>
       <div className={styles.actions}>
         <Button type="submit">{text}</Button>
