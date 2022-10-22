@@ -20,11 +20,11 @@ function AuthForm({ text, onSubmit }) {
     try {
       let res;
       if (location.pathname === "/users/login") {
-        res = await axios.post("http://localhost:8080/users/login", info);
+        res = await axios.post("http://43.201.67.7:8080/users/login", info);
         ctx.onLogin(res.data.accessToken, res.data.refreshToken);
         // ctx.onLogin("token");
       } else {
-        res = await axios.post("http://localhost:8080/users/signup", info);
+        res = await axios.post("http://43.201.67.7:8080/users/signup", info);
       }
       console.log(res.data);
       navigate("/");

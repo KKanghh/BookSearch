@@ -23,7 +23,7 @@ function SearchPage(props) {
       setIsLoading(true);
       try {
         const res = await axios.get(
-          `http://localhost:8080/search?keyword=${keyword}&page=${page}`,
+          `http://43.201.67.7:8080/search?keyword=${keyword}&page=${page}`,
           {
             headers: {
               "X-Auth-Token": ctx.token,
@@ -33,8 +33,19 @@ function SearchPage(props) {
         setBooks(res.data.items);
         setTotal(res.data.total);
       } catch (err) {
-        //await ctx.refresh();
-        console.error(err);
+        ctx.refresh();
+        const res = await axios.get(
+          `http://43.201.67.7:8080/search?keyword=${keyword}&page=${page}`,
+          {
+            headers: {
+              "X-Auth-Token": ctx.token,
+            },
+          }
+        );
+        setBooks(res.data.items);
+        setTotal(res.data.total);
+
+        // console.error(err);
       } finally {
         setIsLoading(false);
       }

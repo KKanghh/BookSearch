@@ -15,7 +15,7 @@ export function AuthContextProvider(props) {
     setToken(token);
     setRefreshToken(rToken);
     localStorage.setItem("accessToken", token);
-    localStorage.setItem("refreshToken", refreshToken);
+    localStorage.setItem("refreshToken", rToken);
   };
 
   const logoutHandler = () => {
@@ -34,11 +34,16 @@ export function AuthContextProvider(props) {
 
   const refresh = async () => {
     console.log(token, refreshToken);
-    const res = await axios.post("https://localhost:8080/users/token", {
-      accessToken: token,
-      refreshToken,
-    });
-    console.log(res.data);
+    try {
+      const res = await axios.post("http://43.201.67.7:8080/users/token", {
+        accessToken: token,
+        refreshToken,
+      });
+      console.log(res.data);
+      loginHandler(res.data.accessToken, res.data.refreshToken);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
