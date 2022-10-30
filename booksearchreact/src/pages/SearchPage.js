@@ -1,5 +1,5 @@
-import { Fragment, useEffect, useContext, useState } from "react";
-import { Navigate, NavLink, useLocation, useNavigate } from "react-router-dom";
+import { Fragment, useEffect, useContext, useState, useRef } from "react";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import BooksList from "../components/Books/BooksList";
 import SearchForm from "../components/SearchForm";
 import axios from "axios";
@@ -33,19 +33,10 @@ function SearchPage(props) {
         setBooks(res.data.items);
         setTotal(res.data.total);
       } catch (err) {
-        ctx.refresh();
-        const res = await axios.get(
-          `http://43.201.67.7:8080/search?keyword=${keyword}&page=${page}`,
-          {
-            headers: {
-              "X-Auth-Token": ctx.token,
-            },
-          }
-        );
-        setBooks(res.data.items);
-        setTotal(res.data.total);
-
-        // console.error(err);
+        console.log("토큰 만료 확인");
+        await ctx.refresh();
+        // console.log(refresh);
+        console.log(ctx.token);
       } finally {
         setIsLoading(false);
       }
@@ -72,7 +63,11 @@ function SearchPage(props) {
   return (
     <Fragment>
       <SearchForm value={keyword} />
-      <BooksList books={books} isLoading={isLoading} />
+      {books.length === 0 ? (
+        <h1>관련된 책이 없습니다.</h1>
+      ) : (
+        <BooksList books={books} isLoading={isLoading} />
+      )}
       <footer className={styles.footer}>
         {pageIndex + 1 !== 1 ? (
           <Button onClick={movePrev}>이전</Button>

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 const authContext = React.createContext({
   token: "",
   isLoggedIn: false,
@@ -10,6 +12,7 @@ const authContext = React.createContext({
 export function AuthContextProvider(props) {
   const [token, setToken] = useState(null);
   const [refreshToken, setRefreshToken] = useState(null);
+  const navigate = useNavigate();
 
   const loginHandler = (token, rToken) => {
     setToken(token);
@@ -33,16 +36,23 @@ export function AuthContextProvider(props) {
   }, []);
 
   const refresh = async () => {
-    console.log(token, refreshToken);
+    console.log("재발급 시도");
     try {
       const res = await axios.post("http://43.201.67.7:8080/users/token", {
         accessToken: token,
         refreshToken,
       });
       console.log(res.data);
-      loginHandler(res.data.accessToken, res.data.refreshToken);
+      setToken(res.data.accessToken);
+      setRefreshToken(res.data.refreshToken);
+      localStorage.setItem("accessToken", res.data.accessToken);
+      localStorage.setItem("refreshToken", res.data.accessToken);
+      return true;
     } catch (err) {
-      console.log(err);
+      console.log("refresh 만료");
+      logoutHandler();
+      navigate("/login", { replace: true });
+      return false;
     }
   };
 

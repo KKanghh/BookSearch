@@ -24,7 +24,7 @@ function SearchForm(props) {
       return;
     }
     console.log(enteredName);
-    navigate(`/search?keyword=${enteredName}&page=1`);
+    navigate(`/search?keyword=${enteredName}&page=1`, { replace: true });
   };
 
   useEffect(() => {

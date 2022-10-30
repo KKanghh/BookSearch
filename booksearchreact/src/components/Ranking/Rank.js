@@ -7,8 +7,9 @@ function Rank(props) {
     <tr>
       <td className={styles.rank}>{props.index}</td>
       <td className={styles.keyword}>
-        <Link to={`/search?keyword=${props.keyword}&page=1`}>
-          {props.keyword}
+        <Link to={`/search?keyword=${props.book.keyword}&page=1`}>
+          {props.book.keyword}{" "}
+          <span className={styles.count}>{props.book.count}회</span>
         </Link>
       </td>
     </tr>
