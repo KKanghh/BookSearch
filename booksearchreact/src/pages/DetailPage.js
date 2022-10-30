@@ -1,34 +1,40 @@
+import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
+import authContext from "../store/auth-context";
 import BookDetail from "../components/Books/BookDetail";
-
-const DUMMY_BOOKS = [
-  {
-    id: "b1",
-    name: "백설공주 1",
-    img: "https://image.yes24.com/goods/22709127/L",
-    price: 6000,
-    description:
-      "백설공주 이야기백설공주 이야기백설공주 이야기백설공주 이야기백설공주 이야기백설공주 이야기백설공주 이야기백설공주 이야기백설공주 이야기백설공주 이야기백설공주 이야기백설공주 이야기백설공주 이야기백설공주 이야기백설공주 이야기백설공주 이야기백설공주 이야기백설공주 이야기백설공주 이야기백설공주 이야기백설공주 이야기백설공주 이야기백설공주 이야기백설공주 이야기백설공주 이야기백설공주 이야기백설공주 이야기백설공주 이야기백설공주 이야기v",
-  },
-  {
-    id: "b2",
-    name: "백설공주 2",
-    img: "https://image.yes24.com/goods/56446488/L",
-    price: 6000,
-    description: "백설공주 이야기백설공주",
-  },
-  {
-    id: "b3",
-    name: "백설공주 3",
-    img: "https://image.yes24.com/goods/22709127/L",
-  },
-];
+import axios from "axios";
 
 function DetailPage() {
   const params = useParams();
-  const bookId = params.bookId;
+  const isbn = params.isbn;
+  const ctx = useContext(authContext);
+  const [book, setBook] = useState(null);
 
-  const book = DUMMY_BOOKS.find((book) => book.id === bookId);
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const res = await axios.get(
+          `http://43.201.67.7:8080/search/book?isbn=${isbn}`,
+          {
+            headers: {
+              "X-Auth-Token": ctx.token,
+            },
+          }
+        );
+        console.log(res.data);
+        setBook(res.data.items[0]);
+      } catch (err) {
+        ctx.refresh();
+      }
+    }
+
+    fetchData();
+  }, [ctx.token, isbn]);
+
+  console.log(isbn);
+
+  if (!book) return <h1>데이터를 가져오는 중..</h1>;
+
   return <BookDetail book={book} />;
 }
 

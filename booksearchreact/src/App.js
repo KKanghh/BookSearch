@@ -25,10 +25,10 @@ function App() {
           path="/users/signup"
           element={ctx.isLoggedIn ? <Navigate to="/" /> : <SignUpPage />}
         />
-        <Route
+        {/* <Route
           path="/popular"
           element={!ctx.isLoggedIn ? <Navigate to="/" /> : <PopularPage />}
-        />
+        /> */}
         <Route
           path="/search"
           element={!ctx.isLoggedIn ? <Navigate to="/" /> : <SearchPage />}
@@ -38,7 +38,7 @@ function App() {
           element={!ctx.isLoggedIn ? <Navigate to="/" /> : <MyPage />}
         />
         <Route
-          path="/detail/:bookId"
+          path="/detail/:isbn"
           element={!ctx.isLoggedIn ? <Navigate to="/" /> : <DetailPage />}
         />
         <Route

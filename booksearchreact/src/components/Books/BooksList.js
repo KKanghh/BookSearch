@@ -10,7 +10,7 @@ function BooksList({ books }) {
         <Book
           key={book.isbn}
           isbn={book.isbn}
-          name={book.title}
+          title={book.title}
           img={book.image}
         />
       ))}

@@ -8,7 +8,7 @@ function Book(props) {
         <img src={props.img} alt={props.name} />
       </div>
       <div className={styles.text}>
-        <Link to={`/detail/${props.isbn}`}>{props.name}</Link>
+        <Link to={`/detail/${props.isbn}`}>{props.title}</Link>
       </div>
     </li>
   );

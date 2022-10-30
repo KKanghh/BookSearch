@@ -47,12 +47,10 @@ export function AuthContextProvider(props) {
       setRefreshToken(res.data.refreshToken);
       localStorage.setItem("accessToken", res.data.accessToken);
       localStorage.setItem("refreshToken", res.data.accessToken);
-      return true;
     } catch (err) {
       console.log("refresh 만료");
       logoutHandler();
-      navigate("/login", { replace: true });
-      return false;
+      navigate("/users/login", { replace: true });
     }
   };
 
