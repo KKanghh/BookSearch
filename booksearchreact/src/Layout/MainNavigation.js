@@ -6,7 +6,7 @@ import Button from "../components/UI/Button";
 
 const loginNavigationMenus = [
   { id: "m1", name: "내 정보", href: "/mypage" },
-  { id: "m2", name: "인기 검색어", href: "/popular" },
+  // { id: "m2", name: "인기 검색어", href: "/popular" },
 ];
 
 const logoutNavigationMenus = [

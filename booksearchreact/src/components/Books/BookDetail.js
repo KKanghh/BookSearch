@@ -5,7 +5,9 @@ function BookDetail({ book }) {
   return (
     <React.Fragment>
       <h1 className={styles.title}>
-        <a href={book.link}>{book.title}</a>
+        <a href={book.link} target="_blank" rel="noreferrer">
+          {book.title}
+        </a>
       </h1>
       <img src={book.image} alt={book.name} />
       <table className={styles.detail}>
