@@ -32,7 +32,7 @@ function SearchForm(props) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get("http://43.201.67.7:8080/", {
+        const res = await axios.get("http://43.201.67.7:8080/history", {
           headers: {
             "X-Auth-Token": ctx.token,
           },
