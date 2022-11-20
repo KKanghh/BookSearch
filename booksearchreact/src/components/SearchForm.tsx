@@ -5,23 +5,28 @@ import authContext from "../store/auth-context";
 import Button from "./UI/Button";
 import axios from "axios";
 
-// const history = ["aa", "bb", "cc", "dd", "ee"];
+interface SearchFormProps {
+  setCaution: (caution: string) => void;
+  value: string;
+}
 
-function SearchForm(props) {
-  const [enteredName, setEnteredName] = useState("");
-  const [isFocused, setIsFoucsed] = useState(false);
+const SearchForm: React.FC<SearchFormProps> = (props) => {
+  const [enteredName, setEnteredName] = useState<string>("");
+  const [isFocused, setIsFoucsed] = useState<boolean>(false);
   const navigate = useNavigate();
-  const ctx = useContext(authContext);
-  const [history, setHistory] = useState([]);
+  const { token, isLoggedIn, refresh } = useContext(authContext);
+  const [history, setHistory] = useState<
+    { keyword: string; searchTime: string }[]
+  >([]);
 
-  const changeHandler = (event) => {
+  const changeHandler = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setEnteredName(event.target.value);
   };
 
-  const submitHandler = (event) => {
+  const submitHandler = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
-    if (!ctx.isLoggedIn) {
+    if (!isLoggedIn) {
       props.setCaution("로그인이 필요합니다!");
       return;
     }
@@ -32,28 +37,28 @@ function SearchForm(props) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get("http://43.201.67.7:8080/history", {
+        const res = await axios.get("http://43.201.67.7:8080/search/history", {
           headers: {
-            "X-Auth-Token": ctx.token,
+            "X-Auth-Token": token,
           },
         });
         // console.log(res.data.histories);
         setHistory(res.data.histories);
       } catch (err) {
         console.error(err);
-        ctx.refresh();
+        refresh();
       }
     };
 
     if (props.value) {
       setEnteredName(props.value);
     }
-    if (ctx.isLoggedIn) {
+    if (isLoggedIn) {
       fetchData();
     }
-  }, [props.value, ctx.token]);
+  }, [props.value, token, isLoggedIn, refresh]);
 
-  let historyContent = history.map((e, index) => {
+  let historyContent: React.ReactNode = history.map((e, index) => {
     const day = new Date(e.searchTime);
     const year = day.getFullYear();
     const month = ("0" + (day.getMonth() + 1)).slice(-2);
@@ -72,11 +77,11 @@ function SearchForm(props) {
     );
   });
 
-  const focusHandler = () => {
+  const focusHandler = (): void => {
     setIsFoucsed(true);
   };
 
-  const blurHandler = () => {
+  const blurHandler = (): void => {
     setTimeout(() => {
       setIsFoucsed(false);
     }, 150);
@@ -102,6 +107,6 @@ function SearchForm(props) {
       </div>
     </form>
   );
-}
+};
 
 export default SearchForm;

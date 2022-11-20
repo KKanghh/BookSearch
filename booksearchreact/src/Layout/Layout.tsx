@@ -1,15 +1,17 @@
 import styles from "./Layout.module.css";
-import MainNavigation from "../Layout/MainNavigation";
-import { useContext, useEffect } from "react";
-import authContext from "../store/auth-context";
+import MainNavigation from "./MainNavigation";
 
-function Layout(props) {
+interface LayoutProps {
+  children: React.ReactNode;
+}
+
+const Layout: React.FC<LayoutProps> = (props) => {
   return (
     <div>
       <MainNavigation />
       <main className={styles.main}>{props.children}</main>
     </div>
   );
-}
+};
 
 export default Layout;

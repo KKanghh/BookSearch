@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import Button from "../UI/Button";
 import styles from "./AuthForm.module.css";
 import LoginInput from "./LoginInput";
@@ -7,14 +7,18 @@ import SignupInput from "./SignupInput";
 import axios from "axios";
 import authContext from "../../store/auth-context";
 
-function AuthForm({ text, onSubmit }) {
+interface AuthFormProps {
+  text: String;
+}
+
+const AuthForm: React.FC<AuthFormProps> = ({ text }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const ctx = useContext(authContext);
-  const [info, setInfo] = useState({});
-  const [error, setError] = useState(null);
+  const [info, setInfo] = useState<object>({});
+  const [error, setError] = useState<string>("");
 
-  const submitHandler = async (event) => {
+  const submitHandler = async (event: React.FormEvent) => {
     event.preventDefault();
     console.log(info);
     try {
@@ -29,11 +33,15 @@ function AuthForm({ text, onSubmit }) {
       console.log(res.data);
       navigate("/");
     } catch (err) {
-      console.log(err);
-      if (err.response.status === 422)
-        setError("Email / Password가 잘못 입력되었습니다.");
-      else setError(err.message);
-      return;
+      if (axios.isAxiosError(err)) {
+        if (err && err.response) {
+          if (err.response.status === 422) {
+            setError("Email / Password가 잘못 입력되었습니다.");
+          } else {
+            setError("에러");
+          }
+        }
+      }
     }
   };
 
@@ -60,6 +68,6 @@ function AuthForm({ text, onSubmit }) {
       </div>
     </form>
   );
-}
+};
 
 export default AuthForm;

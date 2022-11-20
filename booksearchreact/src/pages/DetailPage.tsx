@@ -3,33 +3,34 @@ import { useParams } from "react-router-dom";
 import authContext from "../store/auth-context";
 import BookDetail from "../components/Books/BookDetail";
 import axios from "axios";
+import { Book } from "../types/Book";
 
 function DetailPage() {
   const params = useParams();
   const isbn = params.isbn;
-  const ctx = useContext(authContext);
-  const [book, setBook] = useState(null);
+  const { token, refresh } = useContext(authContext);
+  const [book, setBook] = useState<Book | null>(null);
 
   useEffect(() => {
-    async function fetchData() {
+    async function fetchData(): Promise<void> {
       try {
         const res = await axios.get(
           `http://43.201.67.7:8080/search/book?isbn=${isbn}`,
           {
             headers: {
-              "X-Auth-Token": ctx.token,
+              "X-Auth-Token": token,
             },
           }
         );
         console.log(res.data);
         setBook(res.data.items[0]);
       } catch (err) {
-        ctx.refresh();
+        refresh();
       }
     }
 
     fetchData();
-  }, [ctx.token, isbn]);
+  }, [token, isbn, refresh]);
 
   console.log(isbn);
 

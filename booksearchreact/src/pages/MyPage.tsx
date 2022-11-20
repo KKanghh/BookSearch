@@ -2,25 +2,29 @@ import axios from "axios";
 import React, { useState, useContext, useEffect } from "react";
 import authContext from "../store/auth-context";
 
-function MyPage() {
-  const ctx = useContext(authContext);
-  const [detail, setDetail] = useState({});
+const MyPage: React.FC = () => {
+  const { token, refresh } = useContext(authContext);
+  const [detail, setDetail] = useState<{
+    email: string;
+    id: string;
+    name: string;
+  }>({ email: "", id: "", name: "" });
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = async (): Promise<void> => {
       try {
         const res = await axios.get("http://43.201.67.7:8080/users/info", {
-          headers: { "X-Auth-Token": ctx.token },
+          headers: { "X-Auth-Token": token },
         });
         console.log(res.data);
         setDetail(res.data);
       } catch (err) {
         console.error(err);
-        ctx.refresh();
+        refresh();
       }
     };
 
     fetchData();
-  }, [ctx.token, ctx]);
+  }, [token, refresh]);
 
   return (
     <React.Fragment>
@@ -30,6 +34,6 @@ function MyPage() {
       <div>{detail.name}</div>
     </React.Fragment>
   );
-}
+};
 
 export default MyPage;

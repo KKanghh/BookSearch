@@ -4,7 +4,6 @@ import LoginPage from "./pages/LoginPage";
 import Layout from "./Layout/Layout";
 import HomePage from "./pages/HomePage";
 import SignUpPage from "./pages/SignUpPage";
-import PopularPage from "./pages/PopularPage";
 import authContext from "./store/auth-context";
 import SearchPage from "./pages/SearchPage";
 import MyPage from "./pages/MyPage";

@@ -1,18 +1,22 @@
 import React, { Fragment, useRef } from "react";
 import styles from "./LoginInput.module.css";
 
-function LoginInput({ setInfo }) {
-  const emailRef = useRef();
-  const nameRef = useRef();
-  const password1Ref = useRef();
-  const password2Ref = useRef();
+interface SignUpInputProps {
+  setInfo: (info: object) => void;
+}
+
+const LoginInput: React.FC<SignUpInputProps> = ({ setInfo }) => {
+  const emailRef = useRef<HTMLInputElement>(null);
+  const nameRef = useRef<HTMLInputElement>(null);
+  const password1Ref = useRef<HTMLInputElement>(null);
+  const password2Ref = useRef<HTMLInputElement>(null);
 
   const changeHandler = () => {
     setInfo({
-      email: emailRef.current.value,
-      name: nameRef.current.value,
-      pwd1: password1Ref.current.value,
-      pwd2: password2Ref.current.value,
+      email: emailRef.current!.value,
+      name: nameRef.current!.value,
+      pwd1: password1Ref.current!.value,
+      pwd2: password2Ref.current!.value,
     });
   };
 
@@ -46,6 +50,6 @@ function LoginInput({ setInfo }) {
       </div>
     </Fragment>
   );
-}
+};
 
 export default LoginInput;

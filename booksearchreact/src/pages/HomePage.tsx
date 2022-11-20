@@ -6,33 +6,33 @@ import Ranking from "../components/Ranking/Ranking";
 import axios from "axios";
 
 function HomePage() {
-  const [caution, setCaution] = useState("");
-  const [ranks, setRanks] = useState([]);
-  const ctx = useContext(authContext);
+  const [caution, setCaution] = useState<string>("");
+  const [ranks, setRanks] = useState<{ keyword: string; count: number }[]>([]);
+  const { token, refresh, isLoggedIn } = useContext(authContext);
   useEffect(() => {
-    async function fetchData() {
+    async function fetchData(): Promise<void> {
       try {
         const res = await axios.get("http://43.201.67.7:8080/", {
           headers: {
-            "X-Auth-Token": ctx.token,
+            "X-Auth-Token": token,
           },
         });
         console.log(res.data);
         setRanks(res.data.ranks);
       } catch (err) {
         console.log("토큰 만료");
-        ctx.refresh();
+        refresh();
       }
     }
-    if (ctx.isLoggedIn) {
+    if (isLoggedIn) {
       fetchData();
     }
-  }, [ctx.token]);
+  }, [token, refresh, isLoggedIn]);
   return (
     <div className={style.home}>
       <h1>책</h1>
-      <SearchForm setCaution={setCaution} />
-      {ctx.isLoggedIn && <Ranking ranks={ranks} />}
+      <SearchForm setCaution={setCaution} value={""} />
+      {isLoggedIn && <Ranking ranks={ranks} />}
       <p className={style.caution}>{caution}</p>
     </div>
   );

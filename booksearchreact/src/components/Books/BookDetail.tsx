@@ -1,7 +1,12 @@
 import React from "react";
 import styles from "./BookDetail.module.css";
+import { Book } from "../../types/Book";
 
-function BookDetail({ book }) {
+interface BookDetailProps {
+  book: Book;
+}
+
+const BookDetail: React.FC<BookDetailProps> = ({ book }) => {
   return (
     <React.Fragment>
       <h1 className={styles.title}>
@@ -9,7 +14,7 @@ function BookDetail({ book }) {
           {book.title}
         </a>
       </h1>
-      <img src={book.image} alt={book.name} />
+      <img src={book.image} alt={book.title} />
       <table className={styles.detail}>
         <tbody>
           <tr>
@@ -40,6 +45,6 @@ function BookDetail({ book }) {
       </table>
     </React.Fragment>
   );
-}
+};
 
 export default BookDetail;

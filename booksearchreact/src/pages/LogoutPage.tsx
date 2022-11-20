@@ -1,13 +1,13 @@
-import React, { Fragment, useContext, useEffect } from "react";
+import React, { Fragment, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/UI/Button";
 import authContext from "../store/auth-context";
 
-function LogoutPage() {
+const LogoutPage: React.FC = () => {
   const navigate = useNavigate();
   const ctx = useContext(authContext);
 
-  const logoutHandler = () => {
+  const logoutHandler = (): void => {
     ctx.onLogout();
     navigate("/");
   };
@@ -25,6 +25,6 @@ function LogoutPage() {
       <Button onClick={logoutHandler}>로그아웃</Button>
     </Fragment>
   );
-}
+};
 
 export default LogoutPage;
