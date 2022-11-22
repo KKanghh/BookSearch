@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -42,7 +42,7 @@ export const AuthContextProvider: React.FC<AuthContextProviderProps> = (
     }
   }, []);
 
-  const refresh = async (): Promise<void> => {
+  const refresh = useCallback(async (): Promise<void> => {
     console.log("재발급 시도");
     try {
       const res = await axios.post("http://43.201.67.7:8080/users/token", {
@@ -59,7 +59,7 @@ export const AuthContextProvider: React.FC<AuthContextProviderProps> = (
       logoutHandler();
       navigate("/", { replace: true });
     }
-  };
+  }, [navigate, refreshToken, token]);
 
   return (
     <authContext.Provider
