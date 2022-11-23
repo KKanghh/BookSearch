@@ -8,7 +8,7 @@ import Button from "../components/UI/Button";
 import styles from "./SearchPage.module.css";
 import { Book } from "../types/Book";
 
-function SearchPage() {
+const SearchPage: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const queryParams = new URLSearchParams(location.search);
@@ -87,6 +87,6 @@ function SearchPage() {
       </footer>
     </Fragment>
   );
-}
+};
 
 export default SearchPage;

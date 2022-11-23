@@ -5,7 +5,7 @@ import BookDetail from "../components/Books/BookDetail";
 import axios from "axios";
 import { Book } from "../types/Book";
 
-function DetailPage() {
+const DetailPage: React.FC = () => {
   const params = useParams();
   const isbn = params.isbn;
   const { token, refresh } = useContext(authContext);
@@ -36,6 +36,6 @@ function DetailPage() {
   if (!book) return <h1>데이터를 가져오는 중..</h1>;
 
   return <BookDetail book={book} />;
-}
+};
 
 export default DetailPage;

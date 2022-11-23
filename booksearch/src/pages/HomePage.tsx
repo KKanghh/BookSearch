@@ -5,7 +5,7 @@ import authContext from "../store/auth-context";
 import Ranking from "../components/Ranking/Ranking";
 import axios from "axios";
 
-function HomePage() {
+const HomePage: React.FC = () => {
   const [caution, setCaution] = useState<string>("");
   const [ranks, setRanks] = useState<{ keyword: string; count: number }[]>([]);
   const { token, refresh, isLoggedIn } = useContext(authContext);
@@ -36,6 +36,6 @@ function HomePage() {
       <p className={style.caution}>{caution}</p>
     </div>
   );
-}
+};
 
 export default HomePage;
