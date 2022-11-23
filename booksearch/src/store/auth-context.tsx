@@ -43,9 +43,8 @@ export const AuthContextProvider: React.FC<AuthContextProviderProps> = (
   }, []);
 
   const refresh = useCallback(async (): Promise<void> => {
-    console.log("재발급 시도");
     try {
-      const res = await axios.post("http://43.201.67.7:8080/users/token", {
+      const res = await axios.post(`${process.env.REACT_API_URL}/users/token`, {
         accessToken: token,
         refreshToken,
       });
@@ -55,7 +54,6 @@ export const AuthContextProvider: React.FC<AuthContextProviderProps> = (
       localStorage.setItem("accessToken", res.data.accessToken);
       localStorage.setItem("refreshToken", res.data.accessToken);
     } catch (err) {
-      console.log("refresh 만료");
       logoutHandler();
       navigate("/", { replace: true });
     }

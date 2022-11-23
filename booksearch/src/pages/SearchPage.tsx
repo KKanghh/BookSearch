@@ -34,7 +34,6 @@ function SearchPage() {
         setBooks(res.data.items);
         setTotal(res.data.total);
       } catch (err) {
-        console.log("토큰 만료 확인");
         refresh();
       } finally {
         setIsLoading(false);
