@@ -15,14 +15,13 @@ function DetailPage() {
     async function fetchData(): Promise<void> {
       try {
         const res = await axios.get(
-          `http://43.201.67.7:8080/search/book?isbn=${isbn}`,
+          `${process.env.REACT_APP_API_URL}/search/book?isbn=${isbn}`,
           {
             headers: {
               "X-Auth-Token": token,
             },
           }
         );
-        console.log(res.data);
         setBook(res.data.items[0]);
       } catch (err) {
         refresh();

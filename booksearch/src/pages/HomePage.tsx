@@ -12,7 +12,7 @@ function HomePage() {
   useEffect(() => {
     async function fetchData(): Promise<void> {
       try {
-        const res = await axios.get("http://43.201.67.7:8080/", {
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}`, {
           headers: {
             "X-Auth-Token": token,
           },

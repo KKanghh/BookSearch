@@ -7,6 +7,7 @@ import authContext from "../store/auth-context";
 import Button from "../components/UI/Button";
 import styles from "./SearchPage.module.css";
 import { Book } from "../types/Book";
+
 function SearchPage() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ function SearchPage() {
       setIsLoading(true);
       try {
         const res = await axios.get(
-          `http://43.201.67.7:8080/search?keyword=${keyword}&page=${page}`,
+          `${process.env.REACT_APP_API_URL}/search?keyword=${keyword}&page=${page}`,
           {
             headers: {
               "X-Auth-Token": token,
@@ -35,7 +36,6 @@ function SearchPage() {
       } catch (err) {
         console.log("토큰 만료 확인");
         refresh();
-        // console.log(refresh);
       } finally {
         setIsLoading(false);
       }

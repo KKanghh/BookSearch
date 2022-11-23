@@ -24,10 +24,6 @@ function App() {
           path="/users/signup"
           element={ctx.isLoggedIn ? <Navigate to="/" /> : <SignUpPage />}
         />
-        {/* <Route
-          path="/popular"
-          element={!ctx.isLoggedIn ? <Navigate to="/" /> : <PopularPage />}
-        /> */}
         <Route
           path="/search"
           element={!ctx.isLoggedIn ? <Navigate to="/" /> : <SearchPage />}

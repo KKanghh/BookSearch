@@ -11,13 +11,6 @@ const LogoutPage: React.FC = () => {
     ctx.onLogout();
     navigate("/");
   };
-  //   ctx.onLogout();
-  //   useEffect(() => {
-  //     if (ctx.isLoggedIn) {
-  //       ctx.onLogout();
-  //     }
-  //     navigate("/");
-  //   }, [ctx, navigate]);
 
   return (
     <Fragment>

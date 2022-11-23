@@ -37,11 +37,14 @@ const SearchForm: React.FC<SearchFormProps> = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get("http://43.201.67.7:8080/search/history", {
-          headers: {
-            "X-Auth-Token": token,
-          },
-        });
+        const res = await axios.get(
+          `${process.env.REACT_APP_API_URL}/search/history`,
+          {
+            headers: {
+              "X-Auth-Token": token,
+            },
+          }
+        );
         // console.log(res.data.histories);
         setHistory(res.data.histories);
       } catch (err) {
