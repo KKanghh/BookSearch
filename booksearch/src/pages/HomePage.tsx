@@ -3,31 +3,21 @@ import style from "./HomePage.module.css";
 import { useContext, useState, useEffect } from "react";
 import authContext from "../store/auth-context";
 import Ranking from "../components/Ranking/Ranking";
-import axios from "axios";
+import useFetch from "../Hooks/useFetch";
 
 const HomePage: React.FC = () => {
   const [caution, setCaution] = useState<string>("");
-  const [ranks, setRanks] = useState<{ keyword: string; count: number }[]>([]);
-  const { token, refresh, isLoggedIn } = useContext(authContext);
+  const { isLoggedIn } = useContext(authContext);
+  const { data: ranks, fetchData } = useFetch<
+    { keyword: string; count: number }[]
+  >({
+    defaultValue: [],
+  });
   useEffect(() => {
-    async function fetchData(): Promise<void> {
-      try {
-        const res = await axios.get(`${process.env.REACT_APP_API_URL}`, {
-          headers: {
-            "X-Auth-Token": token,
-          },
-        });
-        console.log(res.data);
-        setRanks(res.data.ranks);
-      } catch (err) {
-        console.log("토큰 만료");
-        refresh();
-      }
-    }
     if (isLoggedIn) {
-      fetchData();
+      fetchData("");
     }
-  }, [token, refresh, isLoggedIn]);
+  }, [fetchData, isLoggedIn]);
   return (
     <div className={style.home}>
       <h1>책</h1>

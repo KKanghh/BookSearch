@@ -2,7 +2,10 @@ import React from "react";
 import styles from "./Button.module.css";
 
 interface ButtonProps {
-  type?: "button" | "submit" | "reset" | undefined;
+  type?: React.DetailedHTMLProps<
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    HTMLButtonElement
+  >["type"];
   onClick?: () => void;
   children?: React.ReactNode;
 }

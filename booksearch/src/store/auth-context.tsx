@@ -44,10 +44,14 @@ export const AuthContextProvider: React.FC<AuthContextProviderProps> = (
 
   const refresh = useCallback(async (): Promise<void> => {
     try {
-      const res = await axios.post(`${process.env.REACT_API_URL}/users/token`, {
-        accessToken: token,
-        refreshToken,
-      });
+      console.log(process.env.REACT_APP_API_URL);
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_URL}/users/token`,
+        {
+          accessToken: token,
+          refreshToken,
+        }
+      );
       console.log(res.data);
       setToken(res.data.accessToken);
       setRefreshToken(res.data.refreshToken);
