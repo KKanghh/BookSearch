@@ -21,6 +21,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ text }) => {
   const submitHandler = async (event: React.FormEvent) => {
     event.preventDefault();
     console.log(info);
+    console.log(process.env.REACT_APP_API_URL);
     try {
       let res;
       if (location.pathname === "/users/login") {
