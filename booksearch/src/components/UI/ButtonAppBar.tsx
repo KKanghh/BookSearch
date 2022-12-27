@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Drawer from "@mui/material/Drawer";
-import { Paper, MenuItem } from "@mui/material";
+import { List, ListItem, MenuItem } from "@mui/material";
 import authContext from "../../store/auth-context";
 import { Navigate, NavLink, useLocation, useNavigate } from "react-router-dom";
 
@@ -23,13 +23,9 @@ export default function ButtonAppBar() {
   const ctx = useContext(authContext);
   const location = useLocation();
   const navigate = useNavigate();
-  console.log(location);
   const openDrawer = () => {
     setVisible(true);
-    console.log("clicked");
   };
-
-  console.log(visible);
 
   useEffect(() => {
     setVisible(false);
@@ -63,19 +59,33 @@ export default function ButtonAppBar() {
         </AppBar>
       </Box>
       <Drawer anchor="left" open={visible} onClose={() => setVisible(false)}>
-        {ctx.isLoggedIn
-          ? loginNavigationMenus.map((menu) => (
-              <MenuItem key={menu.id}>
-                <NavLink to={menu.href}>{menu.name}</NavLink>
-              </MenuItem>
-            ))
-          : logoutNavigationMenus.map((menu) => (
-              <MenuItem key={menu.id} sx={{ width: 200 }}>
-                <NavLink to={menu.href} style={{ width: "100%" }}>
-                  {menu.name}
-                </NavLink>
-              </MenuItem>
-            ))}
+        <List>
+          {ctx.isLoggedIn ? (
+            <React.Fragment>
+              {loginNavigationMenus.map((menu) => (
+                <ListItem key={menu.id} disablePadding>
+                  <NavLink to={menu.href}>{menu.name}</NavLink>
+                </ListItem>
+              ))}
+              <ListItem onClick={() => ctx.onLogout()}>로그아웃</ListItem>
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              {logoutNavigationMenus.map((menu) => (
+                <ListItem
+                  key={menu.id}
+                  divider
+                  disablePadding
+                  sx={{ width: 200 }}
+                >
+                  <NavLink to={menu.href} style={{ width: "100%", padding: 8 }}>
+                    {menu.name}
+                  </NavLink>
+                </ListItem>
+              ))}
+            </React.Fragment>
+          )}
+        </List>
       </Drawer>
     </React.Fragment>
   );
