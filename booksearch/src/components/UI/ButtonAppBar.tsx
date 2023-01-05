@@ -1,13 +1,15 @@
 import React, { useState, useContext, useEffect } from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import Drawer from "@mui/material/Drawer";
-import { List, ListItem, MenuItem } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  Drawer,
+  Toolbar,
+  Typography,
+  IconButton,
+  List,
+  ListItem,
+} from "@mui/material";
 import authContext from "../../store/auth-context";
 import { Navigate, NavLink, useLocation, useNavigate } from "react-router-dom";
 
