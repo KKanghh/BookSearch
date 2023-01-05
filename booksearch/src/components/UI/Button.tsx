@@ -2,10 +2,8 @@ import React from "react";
 import styles from "./Button.module.css";
 
 interface ButtonProps {
-  type?: React.DetailedHTMLProps<
-    React.ButtonHTMLAttributes<HTMLButtonElement>,
-    HTMLButtonElement
-  >["type"];
+  // type?: React.ButtonHTMLAttributes<HTMLButtonElement>["type"];
+  type?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
   onClick?: () => void;
   children?: React.ReactNode;
 }
